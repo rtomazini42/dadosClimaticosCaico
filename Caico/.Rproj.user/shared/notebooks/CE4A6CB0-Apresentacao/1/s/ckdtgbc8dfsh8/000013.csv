@@ -1,0 +1,7 @@
+"0",""
+"0",""
+"0","ano_especifico <- 2023"
+"0","dados_Anuais <- adicionar_ano_dados_anuais(dados_agregados_mes, ano_especifico)"
+"0",""
+"0","dados_AnuaisMes <- adicionarDadosMensais(dados_agregados_mes, dados_AnuaisMes)"
+"0",""

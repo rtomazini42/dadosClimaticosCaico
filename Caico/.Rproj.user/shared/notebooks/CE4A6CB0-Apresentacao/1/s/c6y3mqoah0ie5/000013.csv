@@ -1,0 +1,4 @@
+"0",""
+"0","ano_especifico <- 2014"
+"0","dados_Anuais <- adicionar_ano_dados_anuais(dados_agregados_mes, ano_especifico)"
+"0","dados_AnuaisMes <- adicionarDadosMensais(dados_agregados_mes, dados_AnuaisMes)"
