@@ -56,7 +56,7 @@ adicionarDadosMensais <- function(dados_agregados_mes, dados_AnuaisMes) {
   return(dados_AnuaisMes)
 }
 
-
+dados_acima_de_10mm <- data.frame(Data = as.Date(character()), PRECIPITACAO = numeric())
 ```
 
 # Dados de precipitação de Caicó
@@ -67,7 +67,7 @@ Os dados de precipitação desempenham um papel fundamental em projetos de engen
 
 ### Dados
 
-Os dados foram obtidos em <http://www.mme.gov.br/projeteee/dados-climaticos/> Se referem a estação meteorologica em Caicó, a imprecisão dos dados é esperada de alguma forma, mas os valores são aproximados. Os anos de 2019 para baixo são os de maior precisão.
+Os dados foram obtidos em <https://portal.inmet.gov.br> Se referem a estação meteorologica em Caicó, a imprecisão dos dados é esperada de alguma forma, mas os valores são aproximados. Os anos de 2019 para baixo são os de maior precisão.
 
 ### Local de coleta e distância
 
@@ -90,6 +90,8 @@ Aqui estão um gráfico da média de precipitação mensal com base nos dados de
 
 [![Média mensal por ano, Gráfico próprio](Imagens/Media%20Prec%20por%20Ano.png)](#Resultados%20Anuais)
 
+![Média com Desvio Padrão e tendência](Imagens/ComDesvioPadrao)
+
 ------------------------------------------------------------------------
 
 # 2023
@@ -110,8 +112,6 @@ dados_selecionados <- dados[, c("Data", "Hora.UTC", "PRECIPITAÇÃO.TOTAL..HORÁ
 dados_selecionados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.`[is.na(dados_selecionados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.`)] <- 0
 
 
-
-
 # Converter a coluna "Data" para o formato de data
 dados_selecionados$Data <- as.Date(dados_selecionados$Data, format = "%Y/%m/%d")
 
@@ -119,6 +119,8 @@ dados_selecionados$Data <- as.Date(dados_selecionados$Data, format = "%Y/%m/%d")
 dados_agregados <- aggregate(`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` ~ Data, dados_selecionados, sum)
 
 
+dias_acima_de_10mm_2023 <- dados_agregados[dados_agregados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` > 10, c("Data", "PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.")]
+dados_acima_de_10mm <- rbind(dados_acima_de_10mm, dias_acima_de_10mm_2023)
 
 
 # Criar o gráfico de barras para cada dia
@@ -148,7 +150,7 @@ plot_ly(dados_agregados_mes, x = ~AnoMes, y = ~`PRECIPITAÇÃO.TOTAL..HORÁRIO..
 ano_especifico <- 2023
 dados_Anuais <- adicionar_ano_dados_anuais(dados_agregados_mes, ano_especifico)
 
-dados_AnuaisMes <- adicionarDadosMensais(dados_agregados_mes, dados_AnuaisMes)
+
 
 ```
 
@@ -178,7 +180,8 @@ dados_selecionados$Data <- as.Date(dados_selecionados$Data, format = "%Y/%m/%d")
 # Agregar os dados por data e encontrar o valor máximo de precipitação para cada dia
 dados_agregados <- aggregate(`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` ~ Data, dados_selecionados, sum)
 
-
+dias_acima_de_10mm_2023 <- dados_agregados[dados_agregados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` > 10, c("Data", "PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.")]
+dados_acima_de_10mm <- rbind(dados_acima_de_10mm, dias_acima_de_10mm_2023)
 
 
 # Criar o gráfico de barras para cada dia
@@ -206,7 +209,11 @@ plot_ly(dados_agregados_mes, x = ~AnoMes, y = ~`PRECIPITAÇÃO.TOTAL..HORÁRIO..
 ano_especifico <- 2022
 dados_Anuais <- adicionar_ano_dados_anuais(dados_agregados_mes, ano_especifico)
 
+
+
 dados_AnuaisMes <- adicionarDadosMensais(dados_agregados_mes, dados_AnuaisMes)
+
+
 ```
 
 ------------------------------------------------------------------------
@@ -235,7 +242,8 @@ dados_selecionados$Data <- as.Date(dados_selecionados$Data, format = "%Y/%m/%d")
 # Agregar os dados por data e encontrar o valor máximo de precipitação para cada dia
 dados_agregados <- aggregate(`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` ~ Data, dados_selecionados, sum)
 
-
+dias_acima_de_10mm_2023 <- dados_agregados[dados_agregados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` > 10, c("Data", "PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.")]
+dados_acima_de_10mm <- rbind(dados_acima_de_10mm, dias_acima_de_10mm_2023)
 
 
 # Criar o gráfico de barras para cada dia
@@ -291,7 +299,8 @@ dados_selecionados$Data <- as.Date(dados_selecionados$Data, format = "%Y/%m/%d")
 # Agregar os dados por data e encontrar o valor máximo de precipitação para cada dia
 dados_agregados <- aggregate(`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` ~ Data, dados_selecionados, sum)
 
-
+dias_acima_de_10mm_2023 <- dados_agregados[dados_agregados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` > 10, c("Data", "PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.")]
+dados_acima_de_10mm <- rbind(dados_acima_de_10mm, dias_acima_de_10mm_2023)
 
 
 # Criar o gráfico de barras para cada dia
@@ -345,7 +354,8 @@ dados_selecionados$Data <- as.Date(dados_selecionados$Data, format = "%Y/%m/%d")
 
 # Agregar os dados por data e encontrar o valor máximo de precipitação para cada dia
 dados_agregados <- aggregate(`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` ~ Data, dados_selecionados, sum)
-
+dias_acima_de_10mm_2023 <- dados_agregados[dados_agregados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` > 10, c("Data", "PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.")]
+dados_acima_de_10mm <- rbind(dados_acima_de_10mm, dias_acima_de_10mm_2023)
 
 
 
@@ -398,6 +408,9 @@ dados_selecionados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` <- as.numeric(gsub(",",
 # Agregar os dados por data e encontrar o valor máximo de precipitação para cada dia
 dados_agregados <- aggregate(`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` ~ Data, dados_selecionados, sum)
 
+dias_acima_de_10mm_2023 <- dados_agregados[dados_agregados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` > 10, c("Data", "PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.")]
+dados_acima_de_10mm <- rbind(dados_acima_de_10mm, dias_acima_de_10mm_2023)
+
 
 # Criar o gráfico de barras para cada dia
 plot_ly(dados_agregados, x = ~Data, y = ~`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.`, type = 'bar', name = 'Precipitação por dia') %>%
@@ -445,6 +458,9 @@ dados_selecionados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` <- as.numeric(gsub(",",
 
 # Agregar os dados por data e encontrar o valor máximo de precipitação para cada dia
 dados_agregados <- aggregate(`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` ~ Data, dados_selecionados, sum)
+
+dias_acima_de_10mm_2023 <- dados_agregados[dados_agregados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` > 10, c("Data", "PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.")]
+dados_acima_de_10mm <- rbind(dados_acima_de_10mm, dias_acima_de_10mm_2023)
 
 
 # Criar o gráfico de barras para cada dia
@@ -494,6 +510,10 @@ dados_selecionados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` <- as.numeric(gsub(",",
 dados_agregados <- aggregate(`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` ~ Data, dados_selecionados, sum)
 
 
+dias_acima_de_10mm_2023 <- dados_agregados[dados_agregados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` > 10, c("Data", "PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.")]
+dados_acima_de_10mm <- rbind(dados_acima_de_10mm, dias_acima_de_10mm_2023)
+
+
 # Criar o gráfico de barras para cada dia
 plot_ly(dados_agregados, x = ~Data, y = ~`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.`, type = 'bar', name = 'Precipitação por dia') %>%
   layout(title = "Precipitação diária",
@@ -539,6 +559,9 @@ dados_selecionados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` <- as.numeric(gsub(",",
 
 # Agregar os dados por data e encontrar o valor máximo de precipitação para cada dia
 dados_agregados <- aggregate(`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` ~ Data, dados_selecionados, sum)
+
+dias_acima_de_10mm_2023 <- dados_agregados[dados_agregados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` > 10, c("Data", "PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.")]
+dados_acima_de_10mm <- rbind(dados_acima_de_10mm, dias_acima_de_10mm_2023)
 
 
 # Criar o gráfico de barras para cada dia
@@ -594,6 +617,10 @@ plot_ly(dados_agregados, x = ~Data, y = ~`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.`, 
          xaxis = list(title = "Data"),
          yaxis = list(title = "mm", range = c(0, 5)))
 
+
+dias_acima_de_10mm_2023 <- dados_agregados[dados_agregados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` > 10, c("Data", "PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.")]
+dados_acima_de_10mm <- rbind(dados_acima_de_10mm, dias_acima_de_10mm_2023)
+
 # Adicionar uma nova coluna para o mês e o ano
 dados_agregados$AnoMes <- format(dados_agregados$Data, "%Y-%m")
 
@@ -633,6 +660,9 @@ dados_selecionados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` <- as.numeric(gsub(",",
 
 # Agregar os dados por data e encontrar o valor máximo de precipitação para cada dia
 dados_agregados <- aggregate(`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` ~ Data, dados_selecionados, sum)
+
+dias_acima_de_10mm_2023 <- dados_agregados[dados_agregados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` > 10, c("Data", "PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.")]
+dados_acima_de_10mm <- rbind(dados_acima_de_10mm, dias_acima_de_10mm_2023)
 
 
 # Criar o gráfico de barras para cada dia
@@ -681,6 +711,9 @@ dados_selecionados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` <- as.numeric(gsub(",",
 
 # Agregar os dados por data e encontrar o valor máximo de precipitação para cada dia
 dados_agregados <- aggregate(`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` ~ Data, dados_selecionados, sum)
+
+dias_acima_de_10mm_2023 <- dados_agregados[dados_agregados$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` > 10, c("Data", "PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.")]
+dados_acima_de_10mm <- rbind(dados_acima_de_10mm, dias_acima_de_10mm_2023)
 
 
 # Criar o gráfico de barras para cada dia
@@ -822,6 +855,72 @@ tabela <- plot_ly(type = 'table',
 grafico_media
 grafico_total
 tabela
+
+
+```
+
+```{r, echo=FALSE}
+
+# Calcular o desvio padrão por mês
+desvio_padrao_por_mes <- dados_AnuaisMes %>%
+  group_by(Mes) %>%
+  summarise(desvio_padrao = sd(PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.))
+
+# Criar o gráfico de barras para a média mensal de precipitação com linhas de desvio padrão e linha de tendência
+grafico <- plot_ly(data = media_por_mes, x = ~Mes, y = ~`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.`, type = 'bar', name = 'Precipitação (Média)') %>%
+  layout(title = "Precipitação Média e Desvio Padrão por mês",
+         xaxis = list(title = "Mês"),
+         yaxis = list(title = "Precipitação (mm)"))
+
+# Adicionar linhas de desvio padrão ao gráfico
+grafico_com_desvio <- add_trace(grafico, x = ~desvio_padrao_por_mes$Mes, y = ~desvio_padrao_por_mes$desvio_padrao,
+                                name = 'Desvio Padrão', mode = 'lines', type = 'scatter', line = list(color = 'red'))
+
+# Calcular a linha de tendência
+tendencia <- lm(`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.` ~ Mes, data = media_por_mes)
+tendencia_y <- predict(tendencia, newdata = media_por_mes)
+
+# Adicionar linha de tendência ao gráfico
+grafico_com_desvio <- add_trace(grafico_com_desvio, x = ~media_por_mes$Mes, y = tendencia_y,
+                                name = 'Tendência', mode = 'lines', type = 'scatter', line = list(color = 'green'))
+
+# Mostrar o gráfico
+grafico_com_desvio
+
+
+```
+
+```{r, echo=FALSE}
+
+
+
+# Suponha que você tem os dados em dados_acima_de_10mm
+
+# Criar duas listas separadas para data e precipitação
+datas <- dados_acima_de_10mm$Data
+precipitacoes <- dados_acima_de_10mm$`PRECIPITAÇÃO.TOTAL..HORÁRIO..mm.`
+
+# Criar uma tabela com as duas colunas
+tabela_dados_acima_de_10mm <- plot_ly(
+  type = 'table',
+  header = list(
+    values = c("Data", "PRECIPITAÇÃO.TOTAL..HORÁRIO..mm."),
+    align = c("center"),
+    fill = list(color = "#9ddcff"),
+    line = list(width = 1.5, color = 'black'),
+    font = list(family = "Helvetica", size = 12, color = "black")
+  ),
+  cells = list(
+    values = list(datas, precipitacoes),
+    align = c("center"),
+    line = list(width = 1.5, color = 'black'),
+    font = list(family = "Helvetica", size = 12, color = "black")
+  )
+)%>% 
+layout(title = "Dias com preciptação acima de 10mm")
+
+# Exibir a tabela
+tabela_dados_acima_de_10mm
 
 
 ```
